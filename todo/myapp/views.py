@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
 # Create your views here.
 
 def home(request):
@@ -9,4 +9,4 @@ def pending(request):
     return HttpResponse("Here is your pending tasks")
 
 def done (request):
-    return HttpResponse("Here is your completed tasks.")
+    reuturn HttpResponse("Here is your completed tasks.")
