@@ -5,6 +5,7 @@
 	
 	{% for t in completedTasks %}
 	<li>Task:{{t.task}}, Deadline:{{t.deadline}}, Status:{{t.status}}</li>
+	<a href="{% url 'myapp:delete-task' t.id %}">Delete</a>
 	{% empty %}
 	<li>No Task to show</li>
 	{% endfor %}

@@ -6,4 +6,5 @@ urlpatterns = [
 	path("add-task/", views.addTask, name="add-task"),
 	path("pending/", views.pending, name="pending-tasks"),
 	path("done/", views.done, name="completed-tasks"),
+	path("delete/(?P<pk>[0-9]+)$", views.delete, name="delete-task"),
 ]

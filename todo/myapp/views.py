@@ -36,3 +36,8 @@ def done (request):
     return render(request,"myapp/done.html",{
         "completedTasks":completedTasks
     })
+
+def delete(request,pk):
+    task = Todo.objects.get(pk=pk)
+    task.delete()
+    return redirect('myapp:home')
