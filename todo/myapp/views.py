@@ -41,3 +41,17 @@ def delete(request,pk):
     task = Todo.objects.get(pk=pk)
     task.delete()
     return redirect('myapp:home')
+
+def markPending(request,pk):
+    task = Todo.objects.get(pk=pk)
+    task.status="pending"
+    task.save()
+    return redirect('myapp:pending-tasks')
+
+def markDone(request,pk):
+    task = Todo.objects.get(pk=pk)
+    task.status="done"
+    task.save()
+    return redirect('myapp:completed-tasks')
+
+
