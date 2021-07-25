@@ -1,0 +1,13 @@
+{% extends "myapp/layout.html" %}
+
+{% block body %}
+<div>
+	<a href="{% url 'myapp:add-task' %}">Add a new task</a>
+	<br>
+	<a href="{% url 'myapp:pending-tasks' %}">Show pending task</a>
+	<br>
+	<a href="{% url 'myapp:completed-tasks' %}">Show completed task</a>
+</div>
+<br>
+<div>All rights reserved to the authros: Abhishek and Sai</div>
+{% endblock %}

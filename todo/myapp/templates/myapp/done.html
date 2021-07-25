@@ -1,0 +1,14 @@
+{% extends "myapp/layout.html" %}
+
+{% block body %}
+<ul>
+	
+	{% for t in completedTasks %}
+	<li>Task:{{t.task}}, Deadline:{{t.deadline}}, Status:{{t.status}}</li>
+	{% empty %}
+	<li>No Task to show</li>
+	{% endfor %}
+</ul>
+<br>
+<a href="{% url 'myapp:home' %}">back</a>
+{% endblock %}
