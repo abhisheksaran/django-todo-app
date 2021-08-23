@@ -1,0 +1,18 @@
+# service-monitor.yml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    release: prometheus
+  name: django
+  namespace: monitoring
+spec:
+  endpoints:
+    - path: localhost/metrics
+      port: "31529"
+  namespaceSelector:
+    matchNames:
+      - monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: django
