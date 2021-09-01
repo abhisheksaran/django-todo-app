@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Deploy') {
+            steps {
+                  echo 'Started project 3: CI/CD pipeline for django app'
+                }
+            }
+        }
+    }
+}
+
