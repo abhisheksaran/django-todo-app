@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage('Deploy') {
+            steps {
+                  echo 'This is a first attempt towards CICD'
+                }
+            }
+        }
+    }
+}
+
