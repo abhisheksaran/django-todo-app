@@ -9,5 +9,10 @@ pipeline {
             }
         }
     }
+    post {
+    success {
+      mail to: abhishekbishnoi694@gmail.com, subject: ‘The Pipeline success :(‘
+    }
+  }
 }
 
