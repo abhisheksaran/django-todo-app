@@ -25,8 +25,8 @@ SECRET_KEY = '2yi7v!ymqjmhh)so9g58)c*d52eifu)v-k=8#j1ht3q)=avpmz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = [os.environ.get('HOST_IP'),'127.0.0.1','172.17.0.9','172.17.0.7','172.17.0.6','172.17.0.8','172.17.0.10','172.17.0.11', '127.0.0.8']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [os.environ.get('HOST_IP'),'127.0.0.1','172.17.0.9','127.17.0.7','127.17.0.6','127.17.0.8','127.17.0.10','127.17.0.11', '127.0.0.8']
+
 
 # Application definition
 

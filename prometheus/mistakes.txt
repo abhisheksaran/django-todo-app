@@ -1,0 +1,14 @@
+
+1. take care of namespace, matchLabel, and port name, in files prometheus-service-monitor, prometheus-pod-monitor and prometheus-service
+2. TODO: increase the scrape time out from 10s to 90s at least
+3. use only one of the files prometheus-pod-monitor and prometheus-service-monitor otherwise they replace each other. you can check thus by doing
+    -> kubectl get prometheus.monitoring.coreos.com/prometheus -oyaml 
+    after applying each file one by one and you will see that the configuration is replaced each time
+    However diff between two is mentioned here: https://github.com/prometheus-operator/prometheus-operator/issues/3119
+
+Current Status[00:07,27-08-21]: 
+  config by prometheus-pod-monitor is showing target but vanishes after some time, some pods with error - "Get "http://192.168.64.2:32204/metrics": context deadline exceeded"
+  config bu prometheus-service-monitor is not showing target, just the service discovery is shown. 
+
+Next Steps:
+  try configuring example app, copy all the files from github, and start from the zero and see if the conclusion is same as django-app or different. 
