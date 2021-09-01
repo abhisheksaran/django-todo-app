@@ -5,6 +5,7 @@ pipeline {
             steps {
                 echo 'Started project 3: CI/CD pipeline for django app'
                 echo 'Does it automatically build after a new commit?'
+                echo 'Demo to Sai'
             }
         }
     }
