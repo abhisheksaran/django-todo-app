@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Deploy') {
             steps {
-                  echo 'Started project 3: CI/CD pipeline for django app'
-                }
+                echo 'Started project 3: CI/CD pipeline for django app'
             }
         }
     }
