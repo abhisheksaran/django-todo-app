@@ -1,0 +1,11 @@
+---
+- hosts: all
+  tasks:
+    - name: HelloWorld
+      shell: echo 'hello world'
+
+    - name: Execute ls -lrt command
+      shell: ls -lrt
+      register: output
+
+    - debug: var=output.stdout_lines

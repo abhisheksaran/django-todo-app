@@ -1,0 +1,15 @@
+---
+  - name: "Challenge Testing Files"
+    hosts: all
+    tasks:
+      - name: "test rechability"
+        ping:
+
+      - name: "Ansible fine files example"
+        find:
+          path: ~/abhishek/git/django-todo-app/ansible
+          file_type: file
+        register: files_matched
+
+      - debug:
+          msg: "{{files_matched.files}}"
