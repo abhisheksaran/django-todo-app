@@ -52,7 +52,7 @@ metadata:
     app: django
     release: prometheus
   name: django
-  namespace: monitoring
+  namespace: django
 spec:
   endpoints:
     - path: /metrics
@@ -62,7 +62,7 @@ spec:
           replacement: "192.168.64.2:32204" #host_pod_ip and custom  nodePort 
   namespaceSelector:
     matchNames:
-      - monitoring
+      - django
   selector:
     matchLabels:
       app: django

@@ -1,0 +1,60 @@
+- name: rolling deployment
+  hosts: all
+ 
+  vars:
+    app_path: ~/abhishek/git/django-todo-app
+    image_name: abhitrone/django_prometheus
+    image_tag: 6.0
+
+  pre_tasks:
+
+    - name: check the status of minikube.
+      command: minikube status
+      register: minikube_status
+      changed_when: false
+      ignore_errors: true
+
+    - name: start minikube if it's not running.
+      command: minikube start 
+      when: "not minikube_status.stdout or 'Running' not in minikube_status.stdout"
+
+  tasks:
+    - name: get all namespace
+      command: kubectl get namespaces
+      register: minikube_namespaces
+      
+    - name: create django namespace if not there already  
+      command: kubectl create namespace django
+      when: " 'django' not in minikube_namespaces.stdout"
+
+    - name: move to the django namespace  
+      command: kubectl config set-context --current --namespace=django
+
+    - name: run the django-all file
+      command: "kubectl apply -f {{app_path}}/kubernetes/django-all.yml"
+      register: django_app
+
+
+
+  post_tasks:
+
+    - debug:
+        msg: "django-all: {{django_app}}"
+
+    - name: exposing the django-service 
+      command: minikube service django-all-service --url --namespace=django
+      changed_when: false
+      register: minikube_django_service
+
+    - debug:
+        msg: "Hello Django URL: {{ minikube_django_service['stdout_lines'][0] }}"
+
+    - name: verify Django service is responding 
+      uri:
+        url: "{{ minikube_django_service['stdout_lines'][0] }}/todo"
+        return_content: true
+      register: django_todo_response
+      failed_when: "'/todo' not in django_todo_response.content"
+
+    - debug:
+        msg: "Testing URL todo go Requested: {{django_todo_response}}"
