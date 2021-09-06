@@ -1,0 +1,65 @@
+- name: deployment example app with prometheus
+  hosts: all
+
+  vars:
+    app_path: ~/abhishek/git/django-todo-app/prometheus-exampleapp
+    namespace_name: prometheus-exampleapp
+
+  pre_tasks:
+    
+    - name: check the status of minikube 
+      command: minikube status
+      register: minikube_status
+      changed_when: false
+      ignore_errors: true
+
+    - name: start minikube if it's not running 
+      command: minikube start
+      when: "not minikube_status.stdout or 'Running' not in minikube_status.stdout"
+
+  tasks:
+
+    - name: get all namespace
+      command: kubectl get namespaces
+      register: minikube_namespaces
+
+    - name: create prometheus-exampleapp namespace if not there already
+      command: "kubectl create namespace {{namespace_name}}"
+      when: "'prometheus-exampleapp' not in minikube_namespaces.stdout"
+
+    - name: change context to the prometheus-exampleapp namespace
+      command: "kubectl config set-context --current --namespace={{namespace_name}}"
+
+    - name: "clear the namespace-{{namespace_name}}"
+      command: "kubectl delete all --all -n {{namespace_name}}"
+    - name: run the setup file - setup2.sh in app_path directory
+      command: "bash {{app_path}}/setup2.sh"
+      register: setup
+
+
+  post_tasks: 
+    
+    - debug:
+        msg: "setup output: {{setup}}"
+
+    - name: "get all resources in the {{namespace_name}} namespace"
+      command: "kubectl get all -n {{namespace_name}}"
+      register: get_all
+
+    - debug:
+        msg: "kubectl get all: {{get_all}}"
+
+    - name: exposing the prometheus-service 
+      command: "minikube service prometheus --url -n {{namespace_name}}"
+      changed_when: false
+      register: minikube_prometheus_service
+
+    - debug:
+        msg: "prometheus service URL: {{ minikube_prometheus_service['stdout_lines'][0] }}"
+
+    - name: Opening the Prometheus UI in google chrome
+      shell: "open -a 'Google Chrome' {{ minikube_prometheus_service['stdout_lines'][0] }}"
+        
+
+
+
