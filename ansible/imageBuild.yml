@@ -4,6 +4,7 @@
 
   vars:
     app_path: ~/abhishek/git/django-todo-app
+    app_path_git: "https://github.com/abhisheksaran/django-todo-app"
     image_name: abhitrone/django_prometheus
     image_tag: 6.0
 
@@ -11,7 +12,7 @@
   tasks:
     - name: find docker file 
       find:
-        path: "{{app_path}}"
+        path: "{{app_path_git}}"
         file_type: file
         patterns: "Dockerfile"
       register: docker_file
@@ -21,7 +22,7 @@
         msg: "{{docker_file}}"
 
     - name: build new image
-      shell: "docker build -t {{image_name}}:{{image_tag}} {{app_path}}"
+      shell: "docker build -t {{image_name}}:{{image_tag}} {{app_path_git}}"
       register: build_image 
       when: docker_file.matched == 1
 
