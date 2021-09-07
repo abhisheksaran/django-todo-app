@@ -49,10 +49,13 @@
     - debug:
         msg: "kubectl get all: {{get_all}}"
 
+
     - name: exposing the django-service 
       command: "minikube service django-all-service --url -n {{namespace_name}}"
       changed_when: false
       register: minikube_django_service
+      wait_for:
+        delay: 300
 
     - debug:
         msg: "prometheus service URL: {{ minikube_django_service['stdout_lines'][0] }}"
