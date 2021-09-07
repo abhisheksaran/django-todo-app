@@ -22,7 +22,7 @@ pipeline {
     
         stage("Ansible Playbook: Build the docker image of the app") {
             steps {
-                sh ' cd ansible; ansible-playbook -i ${WORKSPACE}/host imageBuild.yml;'
+                sh 'ansible-playbook -i ${WORKSPACE}/host ${WORKSPACE}/ansible/imageBuild.yml;'
             }
         }
         
