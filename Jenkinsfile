@@ -9,6 +9,7 @@ pipeline {
         stage('PATH checking') {
             steps {
                 sh 'echo $PATH'
+                sh 'echo $WORKSPACE'
                 echo 'Started project 3: CI/CD pipeline for django app'
             }
         }
@@ -21,14 +22,13 @@ pipeline {
     
         stage("Ansible Playbook: Build the docker image of the app") {
             steps {
-                ansiblePlaybook installation: 'ansible', inventory: 'hosts', playbook: 'ansible/imageBuild.yml'
+                sh ' cd ansible; ansible-playbook -i ${WORKSPACE}/host imageBuild.yml;'
             }
         }
         
         stage("Ansible Playbook: Deploy the app as pod in kubernetes along with prometheus service") {
             steps {
-                cd prometheus-exampleapp
-                ansiblePlaybook installation: 'ansible', inventory: 'hosts', playbook: 'deploymentPrometheus.yml'
+                sh 'cd prometheus-exampleapp; ansible-playbook -i ${WORKSPACE}/host deploymentPrometheus.yml;'
             }
         }
 

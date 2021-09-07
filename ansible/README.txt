@@ -21,3 +21,4 @@
 # Examples
 - We have helloworld.yml which just uses shell module to echo the helloworld. We store the output using ***register*** keyword in variable ***output*** and print the output on stdout using the output varaible. We can also specify the name of task using ***name*** keyword.
 - Another example find files in the directory specified by path. You can further provide options such as file types and patterns to find particular files. 
+- to run it in Jenkins environment we have can use the WORKSPACE env variable which stores the value of git root directory. We search for dockerfile in that directory and if found we run it. 
