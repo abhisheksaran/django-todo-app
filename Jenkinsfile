@@ -34,7 +34,7 @@ pipeline {
 
         stage("Zoom chat connection webhook") {
             steps {
-                zoomSend authToken: 'VkVSU046MDAw_Y0FlnIZQmyg4Gsy3jkW4QRd8p1Ynbejb0BHoKmHsOUcoDD219psvGTaRJyko0symkY' jenkinsProxyUsed: true, message: 'Trying the Django CICD...', webhookUrl: 'https://applications.zoom.us/addon/v2/jenkins/webhooks/CcnlmEa3TbSgEXnceCkd1Q'
+                zoomSend authToken: 'VkVSU046MDAw_Y0FlnIZQmyg4Gsy3jkW4QRd8p1Ynbejb0BHoKmHsOUcoDD219psvGTaRJyko0symkY', jenkinsProxyUsed: true, message: 'Trying the Django CICD...', webhookUrl: 'https://applications.zoom.us/addon/v2/jenkins/webhooks/CcnlmEa3TbSgEXnceCkd1Q'
             }
         }
     }
