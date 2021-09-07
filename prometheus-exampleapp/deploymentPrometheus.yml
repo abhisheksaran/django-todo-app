@@ -32,6 +32,7 @@
 
     - name: "clear the namespace-{{namespace_name}}"
       command: "kubectl delete all --all -n {{namespace_name}}"
+    
     - name: run the setup file - setup2.sh in app_path directory
       command: "bash {{app_path}}/setup2.sh"
       register: setup
