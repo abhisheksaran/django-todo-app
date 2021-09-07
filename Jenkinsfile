@@ -28,7 +28,7 @@ pipeline {
         
         stage("Ansible Playbook: Deploy the app as pod in kubernetes along with prometheus service") {
             steps {
-                sh 'cd prometheus-exampleapp; ansible-playbook -i ${WORKSPACE}/host deploymentPrometheus.yml;'
+                sh 'cd prometheus-djangoapp; ansible-playbook -i ${WORKSPACE}/host deploymentPrometheus.yml;'
             }
         }
 
