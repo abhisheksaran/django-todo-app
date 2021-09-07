@@ -51,7 +51,7 @@
     
     - name: wait for 5 minutes before starting next task
       wait_for:
-        delay: 300
+        delay: 60
 
     - name: exposing the django-service 
       command: "minikube service django-all-service --url -n {{namespace_name}}"
