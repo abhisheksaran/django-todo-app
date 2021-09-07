@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: django
-  replicas: 3 # tells deployment to run 1 pods matching the template
+  replicas: 1 # tells deployment to run 1 pods matching the template
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -20,7 +20,7 @@ spec:
           containerPort: 8000
         env:
         - name: HOST_IP
-          value: 192.168.64.2
+          value: 192.168.64.3
 ---
 apiVersion: v1
 kind: Service
@@ -40,7 +40,7 @@ spec:
     port: 8000
     protocol: TCP
     targetPort: 8000
-    nodePort: 32204 #custom pod port, so that i can use this port below in service monitor
+    nodePort: 32304 #custom pod port, so that i can use this port below in service monitor
   selector:
     app: django
 
@@ -54,18 +54,18 @@ metadata:
       #release: prometheus
       #prometheus: prometheus
   name: django
-  namespace: abhi
+  namespace: prometheus-djangoapp
 spec:
   endpoints:
     - path: /metrics
-    - scrapeTimeout: "90s" #for the error execution time out in targets
+    - scrapeTimeout: "10s" #for the error execution time out in targets
     - port: djangoport
-      relabelings:
-        - targetLabel: "__address__"
-          replacement: "192.168.64.2:32204" #host_pod_ip and custom  nodePort 
+      #relabelings:
+      # - targetLabel: "__address__"
+      #   replacement: "192.168.64.3:32304" #host_pod_ip and custom  nodePort 
   namespaceSelector:
     matchNames:
-      - abhi
+      - prometheus-djangoapp
   selector:
     matchLabels:
       app: django

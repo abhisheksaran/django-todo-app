@@ -1,0 +1,6 @@
+- This is the setup to run out TODO Django app with  promethus service via prometheus-operator. 
+- You need to make couple of changes such as namespace, namespace_selector, label_selector, labels etc to make sure your service monitor discovers right services. 
+- You can get the detail on this page design document : https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/design.md
+- And then this getting started: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md
+- We have written an ansible playbook to automate all the prometheus setup as well - deploymentPrometheus.yml
+- Run it as: ansible-playbook deploymentPrometheus.yml
