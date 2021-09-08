@@ -21,7 +21,7 @@ pipeline {
             }
         }
         
-        stage{"The image tag")
+        stage("The dynamic image tag") {
             steps {
               sh 'chmod +x changeTag.sh; ./changeTag.sh TAG;'
             }
