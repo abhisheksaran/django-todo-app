@@ -6,7 +6,7 @@
     app_path: ~/abhishek/git/django-todo-app
     app_path_git: "https://github.com/abhisheksaran/django-todo-app"
     image_name: abhitrone/django_prometheus
-    image_tag: tagVersion
+    image_tag: 6.0
 
 
   tasks:

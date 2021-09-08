@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: django
-        image: abhitrone/django_prometheus:tagVersion
+        image: abhitrone/django_prometheus:6.0
         ports:
         - name: djangoport
           containerPort: 8000

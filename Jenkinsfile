@@ -3,6 +3,7 @@ pipeline {
     
     environment {
       PATH = "/usr/local/opt/openjdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${env.PATH}"
+      TAG = 8.0
     }
 
     stages {
@@ -19,10 +20,15 @@ pipeline {
                 git branch: 'prometheus', credentialsId: 'jenkins-webhook', url: 'https://github.com/abhisheksaran/django-todo-app'
             }
         }
-    
+        
+        stage{"The image tag")
+            steps {
+              sh 'chmod +x changeTag.sh; ./changeTag.sh TAG;'
+            }
+        }
         stage("Ansible Playbook: Build the docker image of the app") {
             steps {
-                sh 'ansible-playbook -i ${WORKSPACE}/host ${WORKSPACE}/ansible/imageBuild.yml;'
+                sh 'ansible-playbook -i ${WORKSPACE}/host ${WORKSPACE}/ansible/imageBuildDynamicTag.yml;'
             }
         }
         
