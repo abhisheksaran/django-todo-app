@@ -3,7 +3,7 @@ pipeline {
     
     environment {
       PATH = "/usr/local/opt/openjdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${env.PATH}"
-      TAG = dynamic+tag+testing
+      TAG = dynamicTagTesting
     }
 
     stages {
