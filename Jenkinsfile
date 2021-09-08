@@ -23,7 +23,7 @@ pipeline {
         
         stage("The dynamic image tag") {
             steps {
-              sh 'chmod +x changeTag.sh; ./changeTag.sh TAG;'
+              sh 'chmod +x changeTag.sh; ./changeTag.sh $TAG;'
             }
         }
         stage("Ansible Playbook: Build the docker image of the app") {
