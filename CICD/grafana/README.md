@@ -1,0 +1,2 @@
+- grafana yaml file for deploying it in a kubernetes environment. 
+- You can find more info regarding this here: https://grafana.com/docs/grafana/latest/installation/kubernetes/ 

@@ -1,3 +1,0 @@
-- This directory contains the resources to setup the jenkins in local kubernetes cluster in minikube
-- Please refer to this link for more. 
-- https://www.jenkins.io/doc/book/installing/kubernetes/ 

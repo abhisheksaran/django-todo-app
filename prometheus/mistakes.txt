@@ -1,3 +1,6 @@
+Reference: prometheus-operator example -
+You  will get an better idea of prometheus if you read the design document : https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/design.md
+And then this getting started: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md
 
 1. take care of namespace, matchLabel, and port name, in files prometheus-service-monitor, prometheus-pod-monitor and prometheus-service
 2. TODO: increase the scrape time out from 10s to 90s at least
@@ -12,3 +15,5 @@ Current Status[00:07,27-08-21]:
 
 Next Steps:
   try configuring example app, copy all the files from github, and start from the zero and see if the conclusion is same as django-app or different. 
+
+Solution: Only work with service monitor, no pod monitors. Prometheus now shows targets. 

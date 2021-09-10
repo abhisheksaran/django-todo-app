@@ -23,21 +23,21 @@ pipeline {
         
         stage("The dynamic image tag") {
             steps {
-              sh 'chmod +x changeTag.sh; ./changeTag.sh $TAG;'
+              sh 'cd CICD; chmod +x changeTag.sh; ./changeTag.sh $TAG;'
             }
         }
         stage("Ansible Playbook: Build the docker image of the app") {
             steps {
-                sh 'ansible-playbook -i ${WORKSPACE}/host ${WORKSPACE}/ansible/imageBuildDynamicTag.yml;'
+                sh 'cd CICD; ansible-playbook -i ${WORKSPACE}/host playbook-image-build-dynamic-tag.yaml;'
             }
         }
         
-        stage("Ansible Playbook: Deploy the app as pod in kubernetes along with prometheus service") {
+        stage("Ansible Playbook: Deploy the Django, Prometheus, and Grafana as kubernetes pod") {
             steps {
-                sh 'cd prometheus-djangoapp; ansible-playbook -i ${WORKSPACE}/host deploymentPrometheus.yml;'
+                sh 'cd CICD; ansible-playbook -i ${WORKSPACE}/host playbook-deploy-django-prometheus-grafana.yaml;'
             }
         }
-
+       
         stage("Zoom chat connection webhook") {
             steps {
                 zoomSend authToken: 'VkVSU046MDAw_Y0FlnIZQmyg4Gsy3jkW4QRd8p1Ynbejb0BHoKmHsOUcoDD219psvGTaRJyko0symkY', jenkinsProxyUsed: true, message: 'Trying the Django CICD...', webhookUrl: 'https://applications.zoom.us/addon/v2/jenkins/webhooks/CcnlmEa3TbSgEXnceCkd1Q'

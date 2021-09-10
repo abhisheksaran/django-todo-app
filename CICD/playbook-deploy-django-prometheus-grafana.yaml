@@ -1,8 +1,7 @@
-- name: deployment django app with prometheus
+- name: deployment django app with Prometheus, and Grafana
   hosts: all
 
   vars:
-    app_path: ~/abhishek/git/django-todo-app/prometheus-djangoapp
     namespace_name: prometheus-djangoapp
 
   pre_tasks:
@@ -32,15 +31,36 @@
 
     - name: "clear the namespace-{{namespace_name}}"
       command: "kubectl delete all --all -n {{namespace_name}}"
-    - name: run the setup file - setup2.sh in app_path directory
-      command: "bash {{app_path}}/setup2.sh"
-      register: setup
+    
+    - name: deploy the django app in  kubernetes
+      shell: |
+        cd django 
+        chmod +x deploy-django.sh
+        ./deploy-django.sh
+      register: deploy_django
 
+    - name: deploy the prometheus service in kubernetes
+      shell: |
+        cd prometheus-djangoapp
+        chmod +x deploy-prometheus.sh
+      register: deploy_prometheus
+
+    - name: deploy the grafana service in kubernetes 
+      shell: | 
+        cd grafana
+        chmod +x deploy-grafana.sh
+      register: deploy_grafana
 
   post_tasks: 
     
     - debug:
-        msg: "setup output: {{setup}}"
+        msg: "deploy-django output: {{deploy_django}}"
+
+   - debug:
+        msg: "deploy-prometheus output: {{deploy_prometheus}}"
+
+    - debug:
+        msg: "deploy-grafana output: {{deploy_grafana}}"
 
     - name: "get all resources in the {{namespace_name}} namespace"
       command: "kubectl get all -n {{namespace_name}}"
@@ -72,6 +92,17 @@
 
     - name: Opening the Prometheus UI in google chrome
       shell: "open -a 'Google Chrome' {{ minikube_prometheus_service['stdout_lines'][0] }}"
+ 
+    - name: exposing the grafana-service 
+      command: "minikube service grafana --url -n {{namespace_name}}"
+      changed_when: false
+      register: minikube_grafana_service
+
+    - debug:
+        msg: "grafana service URL: {{ minikube_grafana_service['stdout_lines'][0] }}"
+
+    - name: Opening the Grafana UI in google chrome
+      shell: "open -a 'Google Chrome' {{ minikube_grafana_service['stdout_lines'][0] }}"
         
 
 

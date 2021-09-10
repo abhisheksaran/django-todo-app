@@ -12,7 +12,7 @@
   tasks:
     - name: find docker file 
       find:
-        path: ../
+        path: ../../
         file_type: file
         patterns: "Dockerfile"
       register: docker_file
@@ -22,7 +22,7 @@
         msg: "{{docker_file}}"
 
     - name: build new image
-      shell: "docker build -t {{image_name}}:{{image_tag}} ../"
+      shell: "docker build -t {{image_name}}:{{image_tag}} ../../"
       register: build_image 
       when: docker_file.matched == 1
 
