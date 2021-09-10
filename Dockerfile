@@ -28,5 +28,11 @@ ENV PATH=/root/.local:$PATH
 EXPOSE 8000
 
 WORKDIR /home
+
+#run migrations 
+RUN python3 manage.py makemigrations
+RUN python3 manage.py migrate
+RUN python3 manage.py migrate --run-syncdb
+
 #start server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
