@@ -56,7 +56,7 @@
     - debug:
         msg: "deploy-django output: {{deploy_django}}"
 
-   - debug:
+    - debug:
         msg: "deploy-prometheus output: {{deploy_prometheus}}"
 
     - debug:
