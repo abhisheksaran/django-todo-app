@@ -43,12 +43,14 @@
       shell: |
         cd prometheus-djangoapp
         chmod +x deploy-prometheus.sh
+        ./deploy-prometheus.sh
       register: deploy_prometheus
 
     - name: deploy the grafana service in kubernetes 
       shell: | 
         cd grafana
         chmod +x deploy-grafana.sh
+        ./deploy-grafana.sh
       register: deploy_grafana
 
   post_tasks: 
